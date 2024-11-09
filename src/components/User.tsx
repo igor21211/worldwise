@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import styles from "./User.module.css";
 
 const FAKE_USER = {
@@ -9,8 +11,14 @@ const FAKE_USER = {
 
 function User() {
   const user = FAKE_USER;
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
-  function handleClick() {}
+  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    logout();
+    navigate("/");
+  }
 
   return (
     <div className={styles.user}>

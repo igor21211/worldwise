@@ -1,9 +1,9 @@
 export interface City {
-  id: number;
+  id?: number;
   country: string;
   cityName: string;
   emoji: string;
-  date: string | null;
+  date: Date;
   notes: string | null;
   position: {
     lat: number;

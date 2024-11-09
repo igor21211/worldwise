@@ -18,6 +18,13 @@
   width: 48rem;
   margin: 8rem auto;
 }
+.form input {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 1px solid var(--color-dark--1);
+  background-color: var(--color-dark--1);
+  color: var(--color-light--0);
+}
 
 .row {
   display: flex;

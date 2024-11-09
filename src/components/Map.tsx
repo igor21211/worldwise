@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import styles from "./Map.module.css";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   MapContainer,
   Marker,
@@ -14,29 +14,22 @@ import { LeafletMouseEvent } from "leaflet";
 import { useCityContext } from "../context/CityContext";
 import useGeoLocation from "../hooks/useGeoLocation";
 import Button from "./Button";
+import { useUrlPosition } from "../hooks/useUrlPosition";
 
 const Map = () => {
-  const navigate = useNavigate();
   const { cities } = useCityContext();
-  const [serchParams, setSearchParams] = useSearchParams();
   const {
     isLoading: isLoadingPosition,
     position: geolocationPosition,
     getPosition,
   } = useGeoLocation();
-  const lat = serchParams.get("lat");
-  const lng = serchParams.get("lng");
-  const [mapPosition, setMapPosition] = useState<[number, number]>([
-    lat ? parseFloat(lat) : 51.505,
-    lng ? parseFloat(lng) : -0.09,
-  ]);
+  const { lat, lng } = useUrlPosition();
+
+  const [mapPosition, setMapPosition] = useState<[number, number]>([lat, lng]);
 
   useEffect(() => {
     if (lat && lng) {
-      setMapPosition([
-        lat ? parseFloat(lat) : 51.505,
-        lng ? parseFloat(lng) : -0.09,
-      ]);
+      setMapPosition([lat, lng]);
     }
   }, [lat, lng]);
 
