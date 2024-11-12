@@ -12,7 +12,7 @@ function City() {
   const { getCity, isLoading, formatDate, currentCity } = useCityContext();
   useEffect(() => {
     getCity(id ? parseInt(id) : 0);
-  }, [id]);
+  }, [id, getCity]);
 
   if (isLoading) return <Spinner />;
   if (!currentCity) return <Message message="City not found" />;

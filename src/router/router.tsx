@@ -1,32 +1,47 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import SpinnerFullPage from "../components/SpinnerFullPage";
 
-import NotFound from "../components/pages/NotFound";
-import Login from "../components/pages/Login";
-import AppLayout from "../components/pages/AppLayout";
-import Homepage from "../components/pages/Homepage";
-import Pricing from "../components/pages/Pricing";
-import Product from "../components/pages/Pricing";
-import Form from "../components/Form";
-import CityList from "../components/CityList";
-import CountryList from "../components/CountryList";
-import City from "../components/City";
-import ProtectedRoute from "../components/pages/ProtectedRoute";
+/* dist/assets/index-Dyo7cZJU.css   37.30 kB │ gzip:   6.64 kB
+dist/assets/index-CdM1aCSk.js   548.53 kB │ gzip: 162.09 kB */
+
+const Homepage = lazy(() => import("../components/pages/Homepage"));
+const Pricing = lazy(() => import("../components/pages/Pricing"));
+const Product = lazy(() => import("../components/pages/Product"));
+const Form = lazy(() => import("../components/Form"));
+const CityList = lazy(() => import("../components/CityList"));
+const CountryList = lazy(() => import("../components/CountryList"));
+const City = lazy(() => import("../components/City"));
+const ProtectedRoute = lazy(() => import("../components/pages/ProtectedRoute"));
+const NotFound = lazy(() => import("../components/pages/NotFound"));
+const Login = lazy(() => import("../components/pages/Login"));
+const AppLayout = lazy(() => import("../components/pages/AppLayout"));
 
 export const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <Suspense fallback={<SpinnerFullPage />}>
+        <Login />
+      </Suspense>
+    ),
   },
   {
     path: "/",
-    element: <Homepage />,
+    element: (
+      <Suspense fallback={<SpinnerFullPage />}>
+        <Homepage />
+      </Suspense>
+    ),
   },
   {
     path: "/app",
     element: (
-      <ProtectedRoute>
-        <AppLayout />
-      </ProtectedRoute>
+      <Suspense fallback={<SpinnerFullPage />}>
+        <ProtectedRoute>
+          <AppLayout />
+        </ProtectedRoute>
+      </Suspense>
     ),
     children: [
       {
@@ -35,32 +50,60 @@ export const router = createBrowserRouter([
       },
       {
         path: "cities",
-        element: <CityList />,
+        element: (
+          <Suspense fallback={<SpinnerFullPage />}>
+            <CityList />
+          </Suspense>
+        ),
       },
       {
         path: "cities/:id",
-        element: <City />,
+        element: (
+          <Suspense fallback={<SpinnerFullPage />}>
+            <City />
+          </Suspense>
+        ),
       },
       {
         path: "countries",
-        element: <CountryList />,
+        element: (
+          <Suspense fallback={<SpinnerFullPage />}>
+            <CountryList />
+          </Suspense>
+        ),
       },
       {
         path: "form",
-        element: <Form />,
+        element: (
+          <Suspense fallback={<SpinnerFullPage />}>
+            <Form />
+          </Suspense>
+        ),
       },
     ],
   },
   {
     path: "/pricing",
-    element: <Pricing />,
+    element: (
+      <Suspense fallback={<SpinnerFullPage />}>
+        <Pricing />
+      </Suspense>
+    ),
   },
   {
     path: "/product",
-    element: <Product />,
+    element: (
+      <Suspense fallback={<SpinnerFullPage />}>
+        <Product />
+      </Suspense>
+    ),
   },
   {
     path: "*",
-    element: <NotFound />,
+    element: (
+      <Suspense fallback={<SpinnerFullPage />}>
+        <NotFound />
+      </Suspense>
+    ),
   },
 ]);
